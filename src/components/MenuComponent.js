@@ -1,33 +1,35 @@
 import React, { useState } from 'react'
 import {
-  Card, CardImg, CardImgOverlay, CardText, CardBody,
+  Card, CardImg, CardImgOverlay,
   CardTitle
 } from 'reactstrap';
+import DishdetailComponent from './DishdetailComponent';
+
+function DisplayCard(togglerDish, dish) {
+  return (
+    <Card key={dish.id}
+      onClick={() => togglerDish(dish)}>
+      <CardImg width="100%" src={dish.image} alt={dish.name} />
+      <CardImgOverlay>
+        <CardTitle>{dish.name}</CardTitle>
+      </CardImgOverlay>
+    </Card>
+  )
+}
 
 const MenuComponent = ({ dishes }) => {
 
   const [showDish, setShowDish] = useState(false)
-  const arrDish = []
+  const [arrDish, setArrDish] = useState([])
+
   const togglerDish = (dish) => {
     setShowDish(!showDish)
-    arrDish.push(dish)
+    setArrDish(dish)
   }
 
   const menu = dishes.map((dish) => (
     <div key={dish.id} className="col-12 col-md-4 mt-5 flex">
-      <Card key={dish.id}
-        onClick={() => togglerDish(dish)}>
-        <CardImg width="100%" src={dish.image} alt={dish.name} />
-        <CardImgOverlay>
-          <CardTitle>{dish.name}</CardTitle>
-        </CardImgOverlay>
-        {/* conditional rendering */}
-        {/* {showDish && (<CardBody>
-          <CardTitle>{dish.name}</CardTitle>
-          <CardText>{dish.description}</CardText>
-        </CardBody>)} */}
-        {/* ===================== */}
-      </Card>
+      {DisplayCard(togglerDish, dish)}
     </div>
   ))
   return (
@@ -36,8 +38,8 @@ const MenuComponent = ({ dishes }) => {
         <div className="row">
           {menu}
         </div>
-        <div className="row">
-          {showDish && (<h1>{arrDish}</h1>)}
+        <div className="row mt-5">
+          {showDish && (<DishdetailComponent arrDish={arrDish} />)}
         </div>
       </div>
     </>
