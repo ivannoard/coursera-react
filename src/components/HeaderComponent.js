@@ -17,22 +17,22 @@ const HeaderComponent = () => {
               <Collapse isOpen={isNavOpen} navbar >
                 <Nav className='ms-auto'>
                   <NavItem>
-                    <NavLink className='nav-link' to='/'>
+                    <NavLink className='nav-link text-white' to='/'>
                       <span className='fa fa-home fa-md'>Home</span>
                     </NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink className='nav-link' to='/aboutus'>
+                    <NavLink className='nav-link text-white' to='/aboutus'>
                       <span className='fa fa-info fa-md'>About Us</span>
                     </NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink className='nav-link' to='/menu'>
+                    <NavLink className='nav-link text-white' to='/menu'>
                       <span className='fa fa-list fa-md'>Menu</span>
                     </NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink className='nav-link' to='/contactus'>
+                    <NavLink className='nav-link text-white' to='/contactus'>
                       <span className='fa fa-address-card fa-md'>Contact Us</span>
                     </NavLink>
                   </NavItem>

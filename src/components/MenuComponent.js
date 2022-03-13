@@ -1,45 +1,42 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Card, CardImg, CardImgOverlay,
-  CardTitle
+  CardTitle, Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
-import DishdetailComponent from './DishdetailComponent';
+import { Link } from 'react-router-dom'
 
-function DisplayCard(togglerDish, dish) {
+function DisplayCard(dish) {
+
   return (
-    <Card key={dish.id}
-      onClick={() => togglerDish(dish)}>
-      <CardImg width="100%" src={dish.image} alt={dish.name} />
-      <CardImgOverlay>
-        <CardTitle>{dish.name}</CardTitle>
-      </CardImgOverlay>
-    </Card>
+    <Card key={dish.id} >
+      <Link to={`/menu/${dish.id}`}>
+        <CardImg width="100%" src={dish.image} alt={dish.name} />
+        <CardImgOverlay>
+          <CardTitle>{dish.name}</CardTitle>
+        </CardImgOverlay>
+      </Link>
+    </Card >
   )
 }
 
 const MenuComponent = ({ dishes }) => {
 
-  const [showDish, setShowDish] = useState(false)
-  const [arrDish, setArrDish] = useState([])
-
-  const togglerDish = (dish) => {
-    setShowDish(!showDish)
-    setArrDish(dish)
-  }
-
   const menu = dishes.map((dish) => (
-    <div key={dish.id} className="col-12 col-md-4 mt-5 flex">
-      {DisplayCard(togglerDish, dish)}
-    </div>
+    <div key={dish.id} className="col-12 col-md-4 mt-5 flex" >
+      {DisplayCard(dish)}
+    </div >
   ))
   return (
     <>
-      <div className="container">
+      <div className="container my-5">
+        <div className="row">
+          <Breadcrumb>
+            <BreadcrumbItem><Link to='/'>Home</Link></BreadcrumbItem>
+            <BreadcrumbItem active>Menu</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
         <div className="row">
           {menu}
-        </div>
-        <div className="row mt-5">
-          {showDish && (<DishdetailComponent arrDish={arrDish} />)}
         </div>
       </div>
     </>
