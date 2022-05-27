@@ -1,9 +1,21 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem } from 'reactstrap';
+import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Label, Button } from 'reactstrap';
 
 const HeaderComponent = () => {
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [remember, setRemember] = useState(false)
   const [isNavOpen, setNavOpen] = useState(false)
+  const [isModal, setIsModal] = useState(false)
+
+  const handleLogin = (e) => {
+    alert(`username: ${username.value}; password: ${password.value}; remember: ${remember.checked}`)
+    e.preventDefault();
+
+  }
+
   return (
     <>
       <Navbar dark className='navbar-dark' expand='md'>
@@ -36,12 +48,40 @@ const HeaderComponent = () => {
                       <span className='fa fa-address-card fa-md'>Contact Us</span>
                     </NavLink>
                   </NavItem>
+                  <NavItem>
+                    <Button className='bg-primary' onClick={() => setIsModal(!isModal)}>Login</Button>
+                  </NavItem>
                 </Nav>
               </Collapse>
             </div>
           </div>
         </div>
       </Navbar>
+      {
+        isModal && (
+          <Modal isOpen={isModal} toggle={() => setIsModal(!isModal)}>
+            <ModalHeader toggle={() => setIsModal(!isModal)}>Login</ModalHeader>
+            <ModalBody>
+              <Form onSubmit={handleLogin}>
+                <FormGroup>
+                  <Label htmlFor='username'>Username</Label>
+                  <Input type='text' id='username' name='username' innerRef={(input) => setUsername(input)} />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor='password'>Password</Label>
+                  <Input type='password' id='password' name='password' innerRef={(input) => setPassword(input)} />
+                </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input type='checkbox' id='remember' name='remember' innerRef={(input) => setRemember(input)} />
+                    Remember Me
+                  </Label>
+                </FormGroup>
+                <Button type='submit' >Login</Button>
+              </Form>
+            </ModalBody>
+          </Modal>)
+      }
       <div className='jumbotron'>
         <div className="container">
           <div className="row row-header">
